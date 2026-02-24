@@ -1,0 +1,49 @@
+#include<stdio.h>
+int partition(int A[], int lb, int ub)
+{
+    int pivot=A[lb];
+    int start=lb+1;
+    int end=ub;
+    int temp;
+    while (start <= end)
+    {
+        while(start<=ub && A[start]<=pivot)
+        start++;
+        while(A[end]>pivot)
+        end--;
+        if(start<end)
+        {
+            temp=A[start];
+            A[start]=A[end];
+            A[end]=temp;
+        }
+        
+    }
+    temp=A[lb];
+    A[lb]=A[end];
+    A[end]=temp;
+    return end;
+}
+void quicksort(int A[], int lb, int ub)
+{
+    if(lb<ub)
+    {
+        int loc=partition(A, lb, ub);
+        quicksort(A, lb, loc-1);
+        quicksort(A, loc+1, ub);
+    }
+}
+int main()
+{
+    int A[] = {4, 5, 3, 7, 2};
+    int n=5;
+    int k=0;
+    quicksort(A, 0, n-1);
+    printf("sorted array:\n");
+    while(k<n)
+    {
+        printf("%d ", A[k]);
+        k++;
+    }
+    return 0;
+}
